@@ -11,3 +11,134 @@
 .button-remove {
   background: rgb(202, 60, 60); /* this is a maroon */
 }
+
+.content {
+  padding-left: 2em;
+  padding-right: 2em;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 450px;
+  min-height: 620px;
+}
+
+#transitions {
+  margin: 2em auto;
+}
+
+.is-center {
+  text-align: center;
+}
+
+.l-box {
+  padding: 1em;
+}
+
+button {
+  margin-left: .2em;
+  margin-right: .2em;
+}
+
+.content-wrapper {
+  background: none repeat scroll 0 0 white;
+  min-height: 12%;
+  position: absolute;
+  top: 87%;
+  width: 100%;
+  z-index: 2;
+}
+.content-head {
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  margin: 2em 0 1em;
+  text-transform: uppercase;
+}
+.footer {
+  margin-top: 3em;
+  font-size: .9em;
+  background: rgb(250, 250, 250);
+  border-top: 1px solid #eee;
+}
+
+
+#grand-total {
+  background: #e0e0e0;
+  border: 1px solid #cbcbcb;
+  span {
+    display: block;
+    font-size: 4em;
+    line-height: 1;
+  }
+}
+
+@media (min-width: 48em) {
+  body {
+    font-size: 16px;
+  }
+  .content {
+    padding: 1em;
+  }
+  .home-menu {
+    text-align: left;
+  }
+  .home-menu ul {
+    float: right;
+  }
+  .splash {
+    height: 50%;
+    width: 50%;
+  }
+  .splash-head {
+    font-size: 250%;
+  }
+  .l-box-lrg {
+    border: medium none;
+  }
+}
+
+@media (min-width: 78em) {
+  .splash-head {
+    font-size: 300%;
+  }
+}
+
+
+
+.home-menu {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  padding: 0.5em;
+  text-align: center;
+  height: 3em;
+}
+.home-menu.pure-menu-open {
+  background: #2d3e50;
+}
+.pure-menu.pure-menu-open.pure-menu-fixed {
+  border-bottom: medium none;
+  z-index: 4;
+}
+.home-menu .pure-menu-heading {
+  color: white;
+  font-size: 120%;
+  font-weight: 400;
+}
+.home-menu .pure-menu-selected a {
+  color: white;
+}
+.home-menu a {
+  color: #6fbef3;
+}
+.home-menu li a:hover, .home-menu li a:focus {
+  background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+  border: medium none;
+  color: #aecfe5;
+}
+
+#notification {
+  display: none;
+  background: rgba(255, 0, 0, 0.2);
+  border: 1px solid rgba(255, 0, 0, 0.25);
+  &.active {
+    display: block;
+  }
+}
+

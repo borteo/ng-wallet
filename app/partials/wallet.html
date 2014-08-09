@@ -12,22 +12,31 @@
   </div>
 
   <div class="l-box pure-u-1 is-center">
-    <input 
-      type="number"
-      ng-model="amout"
-      name="amount"
-      min="0" max="9999" step="0.01"
-      placeholder="amount"
-    >{{ currency }}
+    <form class="pure-form">
+      <input 
+        type="number"
+        ng-model="amount"
+        name="amount"
+        min="0" max="9999" step="0.01"
+        placeholder="type a value"
+      >{{ currency }}
 
-    <button class="pure-button button-add" ng-click="addAmount()">
-      +
-    </button>
-    <button class="pure-button button-remove" ng-click="removeAmount()">
-      -
-    </button>
+      <button class="pure-button button-add" ng-click="addAmount()">
+        +
+      </button>
+      <button class="pure-button button-remove" ng-click="removeAmount()">
+        -
+      </button>
+    </form>
   </div>
 
+  <notification></notification>
+
+  <div id="grand-total" class="l-box pure-u-1 is-center">
+    Grand Total
+    <span>{{ total | currency:activeCurrency.symbol }}</span>
+  </div>
+  
   <div class="l-box pure-u-1 is-center">
     <table id="transitions" class="pure-table">
       <thead>
@@ -45,17 +54,12 @@
           ng-class-odd="'pure-table-odd'"
         >
           <td>{{ $index + 1 }}</td>
-          <td>{{ transition.amount }} {{ activeCurrency.symbol }}</td>
+          <td>{{ transition.amount | currency:activeCurrency.symbol }}</td>
           <td>{{ transition.date | date:"d MMM yy - HH:mm"}}</td>
           <td>{{ transition.type }}</td>
         </tr>
       </tbody>
     </table>
-  </div>
-
-  <div class="grand-total">
-    Grand Total:
-    {{ total }}
   </div>
     
 </div>

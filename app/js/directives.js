@@ -1,9 +1,34 @@
 
 /* Directives */
 
-var dir = angular.module('ngWallet.directives', []);
+var directives = angular.module('ngWallet.directives', []);
 
-dir.directive('navigationBar', [
+// notification system
+directives.directive('notification', [
+  '$timeout',
+  function( $timeout ) {
+    return {
+      restrict: 'E',
+      templateUrl: 'partials/notification.html',
+      link: function( scope, elem, attrs ) {
+
+        scope.$on('SEND_NOTIFICATION', function( event, message ) {
+          scope.active       = true;
+          scope.notification = message;
+
+          // remove error after 3s
+          $timeout(function() {
+            scope.active = false;
+          }, 3000);
+        
+        });
+        
+      }
+    };
+  }
+]);
+
+directives.directive('navigationBar', [
   '$rootScope',
   function( $rootScope ) {
     return {
@@ -17,7 +42,8 @@ dir.directive('navigationBar', [
   }
 ]);
 
-dir.directive('wallet', [
+
+directives.directive('wallet', [
   '$rootScope',
   function( $rootScope ) {
 
@@ -58,26 +84,36 @@ dir.directive('wallet', [
           scope.activeCurrency = scope.currencies[index];
         };
 
-        scope.addAmount = function() {
-          var amount = 10;
-          scope.total += scope.amout;
+        var isNumber = function() {
+          if ( isNaN( scope.amount ) ) {
+            scope.$emit( 'SEND_NOTIFICATION', 'please insert a value' );
+            return false;
+          }
+          return true;
+        };
 
+        var pushTransition = function( type ) {
           scope.transitions.push({
-            "type": ADD,
-            "amount": amount,
+            "type": type,
+            "amount": scope.amount,
             "date": new Date()
           });
         };
 
-        scope.removeAmount = function() {
-          var amount = 10;
-          scope.total -= amount;
+        scope.addAmount = function() {
+          if ( !isNumber() ) {
+            return;
+          }
+          scope.total += scope.amount;
+          pushTransition( ADD );
+        };
 
-          scope.transitions.push({
-            "type": REMOVE,
-            "amount": amount,
-            "date": new Date()
-          });
+        scope.removeAmount = function() {
+          if ( !isNumber() ) {
+            return;
+          }
+          scope.total -= scope.amount;
+          pushTransition( REMOVE );
         };
 
       }
