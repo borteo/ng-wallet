@@ -11,20 +11,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="components/html5-boilerplate/css/normalize.css">
   <link rel="stylesheet" href="components/html5-boilerplate/css/main.css">
+  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
   <link rel="stylesheet" href="css/main.css"/>
   <script src="components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
 <body>
-  <ul class="menu">
-    <li><a href="#/intro">intro</a></li>
-    <li><a href="#/wallet">wallet</a></li>
-  </ul>
 
   <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
 
+  <navigation-bar></navigation-bar>
+
   <div ng-view></div>
+
+  <footer class="footer l-box is-center">
+    Author: Matteo Borgato
+  </footer>
 
   <script src="components/angular/angular.js"></script>
   <script src="components/angular-route/angular-route.js"></script>

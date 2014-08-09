@@ -1,0 +1,41 @@
+<div class="pure-g">
+  <div class="l-box-lrg pure-u-1 pure-u-md-2-5">
+
+    Currency Euro Pound
+
+    <input type="number" name"amount" min="0" max="9999" step="1" placeholder="amount">,
+    <input type="number" name="decimal" min="0" max="99" step="1" placeholder="00">{{ currency }}
+
+    <button ng-click="addAmount()">Add</button>
+    <button ng-click="removeAmount()">Remove</button>
+
+    <table class="pure-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Amount</th>
+          <th>Date</th>
+          <th>Type</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr 
+          ng-repeat="transition in transitions" 
+          ng-class-odd="'pure-table-odd'"
+        >
+          <td>{{ $index + 1 }}</td>
+          <td>{{ transition.amount }}</td>
+          <td>{{ transition.date }}</td>
+          <td>{{ transition.type }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="grand-total">
+      Grand Total:
+      {{ total }}
+    </div>
+    
+  </div>
+</div>

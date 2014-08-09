@@ -1,11 +1,10 @@
 'use strict'
 
-
 var wallet = angular.module('ngWallet', [
   'ngRoute',
   // 'ngWallet.filters',
   // 'ngWallet.services',
-  // 'ngWallet.directives',
+  'ngWallet.directives',
   'ngWallet.controllers'
 ]);
 
@@ -13,15 +12,11 @@ var wallet = angular.module('ngWallet', [
 wallet.config([
   '$routeProvider',
   function( $routeProvider ) {
-    $routeProvider.when('/intro', {
-      templateUrl: 'partials/intro.tpl.html'
-    });
-
-    $routeProvider.when('/wallet', {
-      templateUrl: 'partials/wallet.tpl.html',
+    $routeProvider.when('/', {
+      templateUrl: 'partials/home.html',
       controller: 'WalletController'
     });
 
-    $routeProvider.otherwise({redirectTo: '/intro'});
+    $routeProvider.otherwise({redirectTo: '/'});
   }
 ]);

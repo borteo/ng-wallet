@@ -4,8 +4,8 @@
   "homepage": "https://github.com/borteo/ng-wallet",
   "license": "MIT",
   "dependencies": {
+  	"html5-boilerplate": "~4.3.0",
     "angular": "1.2.x",
-    "angular-route": "1.2.x",
-    "html5-boilerplate": "~4.3.0"
+    "angular-route": "1.2.x"
   }
 }
