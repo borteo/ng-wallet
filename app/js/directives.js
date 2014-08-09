@@ -37,6 +37,14 @@ directives.directive('navigationBar', [
       templateUrl: 'partials/navigation-bar.html',
       link: function( scope, element, attribute ) {
 
+        scope.reset = function() {
+          var r = confirm("Do you really want to reset your Wallet?");
+          if ( r ) {
+            scope.$broadcast( 'RESET_WALLET' );
+          }
+
+        };
+        
       }
     };
   }
@@ -45,10 +53,11 @@ directives.directive('navigationBar', [
 
 directives.directive('wallet', [
   '$rootScope',
-  function( $rootScope ) {
+  '$localStorage',
+  function( $rootScope, $localStorage ) {
 
-    var ADD    = '+';
-    var REMOVE = '-';
+    var ADD    = 'up';
+    var REMOVE = 'down';
 
     return {
       restrict: 'E',
@@ -60,16 +69,19 @@ directives.directive('wallet', [
           {
             "active": true,
             "val": "Euro",
-            "symbol": "€"
+            "symbol": "€",
+            "icon": "eur"
           }, {
             "active": false,
             "val": "GBP",
-            "symbol": "£"
+            "symbol": "£",
+            "icon": "gbp"
           }
         ];
         scope.activeCurrency = scope.currencies[0];
-        scope.transitions    = [];
-        scope.total          = 0;
+        // data should persist on a page refresh
+        scope.transitions    = $localStorage.transitions || [];
+        scope.total          = $localStorage.total || 0;
 
         scope.setCurrency = function( index ) {
           // already selected
@@ -86,7 +98,7 @@ directives.directive('wallet', [
 
         var isNumber = function() {
           if ( isNaN( scope.amount ) ) {
-            scope.$emit( 'SEND_NOTIFICATION', 'please insert a value' );
+            scope.$emit( 'SEND_NOTIFICATION', 'please insert a value (123.45)' );
             return false;
           }
           return true;
@@ -98,6 +110,8 @@ directives.directive('wallet', [
             "amount": scope.amount,
             "date": new Date()
           });
+
+          $localStorage.transitions = scope.transitions;
         };
 
         scope.addAmount = function() {
@@ -105,6 +119,8 @@ directives.directive('wallet', [
             return;
           }
           scope.total += scope.amount;
+          $localStorage.total = scope.total;
+
           pushTransition( ADD );
         };
 
@@ -113,8 +129,18 @@ directives.directive('wallet', [
             return;
           }
           scope.total -= scope.amount;
+          $localStorage.total = scope.total;
+
           pushTransition( REMOVE );
         };
+
+        scope.$on('RESET_WALLET', function( event ) {
+          scope.transitions.splice(0, scope.transitions.length);
+           scope.total               = 0;
+
+           $localStorage.transitions = null;
+           $localStorage.total       = null;
+        });
 
       }
     };

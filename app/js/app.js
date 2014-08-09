@@ -2,8 +2,7 @@
 
 var wallet = angular.module('ngWallet', [
   'ngRoute',
-  // 'ngWallet.filters',
-  // 'ngWallet.services',
+  'ngStorage',
   'ngWallet.directives',
   'ngWallet.controllers'
 ]);
