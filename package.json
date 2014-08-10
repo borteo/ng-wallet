@@ -1,6 +1,10 @@
 {
   "name": "ng-wallet",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/borteo/ng-wallet.git"
+  }
   "devDependencies": {
     "gulp": "^3.8.6",
     "gulp-concat": "^2.3.4",
