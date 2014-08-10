@@ -1,7 +1,6 @@
 'use strict';
 
 var gulp       = require('gulp');
-
 var livereload = require('gulp-livereload');
 var sass       = require('gulp-sass');
 var cleanhtml  = require('gulp-cleanhtml');

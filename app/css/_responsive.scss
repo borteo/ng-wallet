@@ -1,0 +1,29 @@
+@media (min-width: 35.5em) {
+  .pure-form input {
+    width: auto;
+  }
+  #show-menu {
+    display: none;
+  }
+  .home-menu ul {
+    visibility: visible;
+  }
+}
+
+@media (min-width: 48em) {
+  body {
+    font-size: 16px;
+  }
+  .content {
+    padding: 1em;
+  }
+  .home-menu {
+    text-align: left;
+  }
+  .home-menu ul {
+    float: right;
+  }
+  .l-box-lrg {
+    border: medium none;
+  }
+}

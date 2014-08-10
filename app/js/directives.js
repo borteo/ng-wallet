@@ -28,6 +28,8 @@ directives.directive('notification', [
   }
 ]);
 
+// Actions bar
+// View Source redirects to github project
 directives.directive('navigationBar', [
   '$rootScope',
   function( $rootScope ) {
@@ -50,14 +52,14 @@ directives.directive('navigationBar', [
   }
 ]);
 
-
+// Wallet 
 directives.directive('wallet', [
   '$rootScope',
   '$localStorage',
   function( $rootScope, $localStorage ) {
 
-    var ADD    = 'up';
-    var REMOVE = 'down';
+    var ADD    = 'in';
+    var REMOVE = 'out';
 
     return {
       restrict: 'E',
@@ -65,44 +67,45 @@ directives.directive('wallet', [
       templateUrl: 'partials/wallet.html',
       link: function( scope, element, attribute ) {
 
+        // currencies as an array of objects
+        // scalable
         scope.currencies = [
           {
-            "active": true,
             "val": "Euro",
             "symbol": "€",
             "icon": "eur"
           }, {
-            "active": false,
             "val": "GBP",
             "symbol": "£",
             "icon": "gbp"
           }
         ];
-        scope.activeCurrency = scope.currencies[0];
+
         // data should persist on a page refresh
+        var currencyIdx      = $localStorage.activeCurrencyIdx || 0;
+        scope.activeCurrency = scope.currencies[ currencyIdx ];
+
         scope.transitions    = $localStorage.transitions || [];
         scope.total          = $localStorage.total || 0;
 
-        scope.setCurrency = function( index ) {
-          // already selected
-          if ( scope.currencies[ index ].active ) {
-            return;
-          }
-
-          for ( var i = 0, nodes = scope.currencies.length; i < nodes; i++ ) {
-            scope.currencies[ i ].active = false;
-          }
-          scope.currencies[ index ].active = true;
-          scope.activeCurrency = scope.currencies[index];
-        };
-
-        var isNumber = function() {
+        // checks if the text typed is not a number
+        var isNotNumber = function() {
           if ( isNaN( scope.amount ) ) {
             scope.$emit( 'SEND_NOTIFICATION', 'please insert a value (123.45)' );
-            return false;
+            return true;
           }
-          return true;
+          return false;
         };
+
+        // checks if the grandTotal is negative
+        var isTotalNegative = function() {
+          if ( scope.total - scope.amount < 0 ) {
+            scope.$emit( 'SEND_NOTIFICATION', 'The wallet can never contain a negative amount' );
+            return true;
+          }
+          return false;
+        };
+
 
         var pushTransition = function( type ) {
           scope.transitions.push({
@@ -114,8 +117,13 @@ directives.directive('wallet', [
           $localStorage.transitions = scope.transitions;
         };
 
+        scope.setCurrency = function( index ) {
+          scope.activeCurrency = scope.currencies[ index ];
+          $localStorage.activeCurrencyIdx = index;
+        };
+
         scope.addAmount = function() {
-          if ( !isNumber() ) {
+          if ( isNotNumber() ) {
             return;
           }
           scope.total += scope.amount;
@@ -125,9 +133,13 @@ directives.directive('wallet', [
         };
 
         scope.removeAmount = function() {
-          if ( !isNumber() ) {
+          if ( isNotNumber() ) {
             return;
           }
+          if ( isTotalNegative() ) {
+            return;
+          }
+
           scope.total -= scope.amount;
           $localStorage.total = scope.total;
 
@@ -136,10 +148,10 @@ directives.directive('wallet', [
 
         scope.$on('RESET_WALLET', function( event ) {
           scope.transitions.splice(0, scope.transitions.length);
-           scope.total               = 0;
-
-           $localStorage.transitions = null;
-           $localStorage.total       = null;
+          $localStorage.transitions.splice(0, $localStorage.transitions.length);
+          
+          scope.total          = 0;
+           $localStorage.total = null;
         });
 
       }

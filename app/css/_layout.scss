@@ -1,10 +1,16 @@
+.content-head {
+  letter-spacing: 0.1em;
+  margin: 2em 0 1em;
+  text-transform: uppercase;
+}
+
 .content {
-  padding-left: 2em;
-  padding-right: 2em;
   margin-left: auto;
   margin-right: auto;
   max-width: 450px;
   min-height: 620px;
+  padding-left: 2em;
+  padding-right: 2em;
 }
 
 #transitions {
@@ -25,20 +31,6 @@
   background: rgb(202, 60, 60); /* this is a maroon */
 }
 
-.content-head {
-  letter-spacing: 0.1em;
-  margin: 2em 0 1em;
-  text-transform: uppercase;
-}
-.footer {
-  margin-top: 3em;
-  font-size: .9em;
-  background: rgb(250, 250, 250);
-  border-top: 1px solid #eee;
-}
-
-
-
 #grand-total {
   background: #e0e0e0;
   border: 1px solid #cbcbcb;
@@ -57,46 +49,16 @@
 
 #show-menu {
   background: black;
-  padding: 0 .5em;
-  cursor: pointer;
-  position: absolute;
-  left: 1em;
-  top: .7em;
   color: #FFF;
+  cursor: pointer;
+  left: 1em;
+  padding: 0 .5em;
+  position: absolute;
+  top: .7em;
 }
 
 .home-menu ul {
   visibility: hidden;
-}
-
-@media (min-width: 48em) {
-  body {
-    font-size: 16px;
-  }
-  .content {
-    padding: 1em;
-  }
-  .home-menu {
-    text-align: left;
-  }
-  .home-menu ul {
-    float: right;
-  }
-  .l-box-lrg {
-    border: medium none;
-  }
-}
-
-@media (min-width: 35.5em) {
-  .pure-form input {
-    width: auto;
-  }
-  #show-menu {
-    display: none;
-  }
-  .home-menu ul {
-    visibility: visible;
-  }
 }
 
 
@@ -134,12 +96,18 @@
 
 
 #notification {
-  display: none;
   background: rgba(255, 0, 0, 0.2);
   border: 1px solid rgba(255, 0, 0, 0.25);
+  display: none;
   margin-bottom: .5em;
   &.active {
     display: block;
   }
 }
 
+.footer {
+  background: rgb(250, 250, 250);
+  border-top: 1px solid #eee;
+  font-size: .9em;
+  margin-top: 3em;
+}

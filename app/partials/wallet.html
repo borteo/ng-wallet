@@ -5,7 +5,7 @@
     <button 
       class="pure-button" 
       ng-click="setCurrency( $index )"
-      ng-class="{ 'pure-button-primary': currency.active }" 
+      ng-class="{ 'pure-button-primary': currency === activeCurrency }" 
       ng-repeat="currency in currencies">
       {{ currency.val }}
     </button>
@@ -16,7 +16,7 @@
       <input 
         class="amount"
         type="number"
-        ng-model="amount"
+        ng-model="amount" 
         name="amount"
         min="0" max="9999" step="0.01"
         placeholder="type a value"
@@ -36,7 +36,7 @@
   <div id="grand-total" class="l-box pure-u-1 is-center">
     Grand Total
     <span>
-      <i class="fa fa-{{ activeCurrency.icon }}"></i> {{ total }}
+      <i class="fa fa-{{ activeCurrency.icon }}"></i> {{ total | number:2 }}
     </span>
   </div>
 
@@ -52,14 +52,14 @@
       </thead>
 
       <tbody>
-        <tr 
+        <tr
           ng-repeat="transition in transitions" 
           ng-class-odd="'pure-table-odd'"
         >
           <td>{{ $index + 1 }}</td>
           <td>{{ transition.amount | currency:activeCurrency.symbol }}</td>
           <td>{{ transition.date | date:"d MMM yy - HH:mm:ss"}}</td>
-          <td><i class="fa fa-chevron-{{ transition.type }}"></i></td>
+          <td><i class="fa fa-sign-{{ transition.type }}"></i></td>
         </tr>
       </tbody>
     </table>
